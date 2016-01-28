@@ -1,0 +1,15 @@
+## DJANGO ##
+django==1.8.3  # django framework, our core.
+
+# IMAGES #
+#Pillow==2.9.0  # PIL fork. used to work with images.
+
+# REST API #
+#djangorestframework==2.3.13  # REST framework.
+
+
+# Grappelli #
+django-grappelli==2.7.1
+
+# psycopg2 # para postgresql
+#psycopg2==2.6.1
