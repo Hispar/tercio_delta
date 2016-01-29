@@ -7,9 +7,14 @@ django==1.8.3  # django framework, our core.
 # REST API #
 #djangorestframework==2.3.13  # REST framework.
 
+# Python social auth #
+python-social-auth==0.2.14
+
+# Python environments tool #
+python-dotenv==0.3.0
 
 # Grappelli #
-django-grappelli==2.7.1
+#django-grappelli==2.7.1
 
 # psycopg2 # para postgresql
 #psycopg2==2.6.1

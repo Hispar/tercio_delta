@@ -9,13 +9,19 @@ https://docs.djangoproject.com/en/1.9/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
-
+from dotenv import load_dotenv
+import os
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
 
+
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
+
 # PATH CONFIGURATION
 # Absolute filesystem path to the Django project directory:
-DJANGO_ROOT = dirname(dirname(abspath(__file__)))
+DJANGO_ROOT = dirname(dirname(dirname(abspath(__file__))))
 
 # Absolute filesystem path to the top-level project folder:
 SITE_ROOT = dirname(DJANGO_ROOT)
@@ -161,13 +167,19 @@ DJANGO_APPS = (
     'django.contrib.sitemaps',
 )
 
+UTILS_APPS = (
+    'social.apps.django_app.default',
+)
+
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'tercio_delta',
+    'utils',
+    'users'
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-INSTALLED_APPS = BEFORE_DJANGO_APPS + DJANGO_APPS + LOCAL_APPS
+INSTALLED_APPS = BEFORE_DJANGO_APPS + DJANGO_APPS + UTILS_APPS + LOCAL_APPS
 # END APP CONFIGURATION
 
 
@@ -197,14 +209,16 @@ TEMPLATES = [
         'DIRS': [join(DJANGO_ROOT, 'templates')]
         ,
         'APP_DIRS': True,
-        'TEMPLATE_DEBUG': DEBUG,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
+            'debug': DEBUG,
         },
     },
 ]
@@ -214,3 +228,44 @@ TEMPLATES = [
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 # END WSGI CONFIGURATION
+
+
+# SOCIAL AUTH SETTINGS
+
+# SOCIAL_AUTH_USER_MODEL = 'foo.bar.User'
+# This controls the length of the UUID appended to usernames.
+SOCIAL_AUTH_UUID_LENGTH = 16
+# If you want to use the full email address as the username, define this setting.
+SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
+# force slugify names
+SOCIAL_AUTH_SLUGIFY_USERNAMES = False
+# clean usernames from usual undesired characters
+SOCIAL_AUTH_CLEAN_USERNAMES = True
+
+# AUTHENTICATION BACKENDS #
+# See: https://docs.djangoproject.com/en/1.9/topics/auth/customizing/#specifying-authentication-backends
+AUTHENTICATION_BACKENDS = (
+    'social.backends.open_id.OpenIdAuth',
+    'social.backends.google.GoogleOpenId',
+    'social.backends.google.GoogleOAuth2',
+    'social.backends.google.GoogleOAuth',
+    'social.backends.twitter.TwitterOAuth',
+    # 'social.backends.facebook.FacebookAppOAuth2',
+    'social.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+# END AUTHENTICATION BACKENDS #
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'locale': 'es_ES',
+  'fields': 'id, name, email'
+}
+
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
+
+# SOCIAL_AUTH_GOOGLE_SREG_EXTRA_DATA
+# SOCIAL_AUTH_GOOGLE_AX_EXTRA_DATA
+# END SOCIAL AUTH SETTINGS

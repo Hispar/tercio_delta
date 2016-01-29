@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{#    {% load staticfiles js %}#}
+{#    {% django_js %}#}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=760">
+    <meta property="og:title" content="Tercio Delta Admin" />
+    <meta property="og:description" content="Tercio Delta Admin" />
+    <title>{{ title }}</title>
+{#    <link rel="stylesheet" href="{% static "css/standardize.css" %}">#}
+    {% block css %}
+    {% endblock %}
+{#    <script type="text/javascript" src="{% static "js/jquery-min.js" %}"></script>#}
+    {% block js %}
+    {% endblock %}
+</head>
+{% block body %}
+{% endblock %}
+</html>

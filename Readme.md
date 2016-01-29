@@ -6,6 +6,9 @@ La última versión de **pip** (https://pip.pypa.io/en/latest/installing.html#in
 Es recomendable crear un virtualenv donde instalar todas las dependencias del proyecto.
 Para instalar la versión de **django** y las dependencias del proyecto haremos **pip install -r requirements/local.txt** 
 
+Copiar el fichero de variables de entorno **tercio_delta/settings/.env.example** a **tercio_delta/settings/.env** 
+y rellenar con los valores de prueba de tu entorno local.
+
 Creación de la base de datos:
 Se encuentra en sqlite por el momento, es el fichero **db.sqlite3**.
 En django 1.9 tenemos que hacer uso de las migraciones: https://docs.djangoproject.com/en/1.9/topics/migrations/#workflow
@@ -23,11 +26,11 @@ La ruta por defecto para el administrador es **http://127.0.0.1:8000/admin**
 
  * django framework
  * Ipdb - debugging (https://github.com/gotcha/ipdb)
+ * Python social auth - login en redes sociales (http://psa.matiasaguirre.net/)
  
 ### Otras posibles dependencias, no requeridas en este momento.
  
  * Djangojs - integración de javascript (http://djangojs.readthedocs.org/en/latest/)
- * Django social - login en fb (http://django-social-auth.readthedocs.org/en/latest/)
  * Django rest framework - crear funcionalidades REST (http://www.django-rest-framework.org/) 
  * Django-dynamic-fixture - creación de datos de prueba (http://django-dynamic-fixture.readthedocs.org/en/latest/index.html)
  * Django-Suit - personalización del panel de administración (http://django-suit.readthedocs.org/en/develop/)

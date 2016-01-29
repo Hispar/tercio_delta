@@ -1,4 +1,4 @@
-"""tercio_delta URL Configuration
+"""users URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.9/topics/http/urls/
@@ -14,12 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-from django.contrib import admin
-from tercio_delta.views import LoginView
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^login/$', LoginView.as_view(), name="login-detail"),
-    url('', include('social.apps.django_app.urls', namespace='social')),
-    url(r'^users/', include('users.urls', namespace='social')),
+    # url(r'^login', ),
 ]
