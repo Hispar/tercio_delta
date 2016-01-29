@@ -4,6 +4,7 @@ License boilerplate should be used here.
 """
 
 # django imports
+import os
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
