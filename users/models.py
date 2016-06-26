@@ -7,41 +7,41 @@ from django.contrib.auth.models import User
 from django.db import models
 from utils.models import DateModificationModelMixin
 
-A = 'Activo'
-R = 'Reserva'
-N = 'Novato'
-STATUS_OPTIONS = (
-    ('A', A),
-    ('R', R),
-    ('N', N),
-)
-
-SL = 'Soldado'
-SR = 'Sargento'
-CA = 'Capitan'
-CO = 'Comandante'
-RANK_OPTIONS = (
-    ('SL', SL),
-    ('SR', SR),
-    ('CA', CA),
-    ('CO', CO),
-)
-
 
 class Member(DateModificationModelMixin):
+    A = 'Activo'
+    R = 'Reserva'
+    N = 'Novato'
+    STATUS_OPTIONS = (
+        ('A', A),
+        ('R', R),
+        ('N', N),
+    )
+
+    SL = 'Soldado'
+    SR = 'Sargento'
+    CA = 'Capitan'
+    CO = 'Comandante'
+    RANK_OPTIONS = (
+        ('SL', SL),
+        ('SR', SR),
+        ('CA', CA),
+        ('CO', CO),
+    )
     nick = models.CharField(max_length=200)
     real_name = models.CharField(max_length=200)
     status = models.CharField(max_length=1, choices=STATUS_OPTIONS)
     rank = models.CharField(max_length=2, choices=RANK_OPTIONS, default=SL)
-    played = models.IntegerField(blank=True)
+    played = models.IntegerField(blank=True, default=0)
     picture = models.FileField(upload_to='media', blank=True)
     units = models.ManyToManyField('Unit', through='MemberUnit')
     awards = models.ManyToManyField('Award', through='MemberAward')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.nick
 
     def get_rank(self):
+        print(self.rank)
         return getattr(self, self.rank)
 
     def get_status(self):
@@ -60,7 +60,7 @@ class Unit(DateModificationModelMixin):
     picture = models.FileField(upload_to='media/units', blank=True)
     members = models.ManyToManyField('Member', through='MemberUnit')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_picture(self):
@@ -84,7 +84,7 @@ class Award(DateModificationModelMixin):
     picture = models.FileField(upload_to='media/awards', blank=True)
     awarded = models.ManyToManyField('Member', through='MemberAward')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_level(self):
