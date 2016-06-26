@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Tipo</th>
+                <th>Nivel</th>
+                <th>Miembros</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if awards_list %}
+                {% for award in awards_list %}
+                    <tr>
+                        <td><a href="{% url 'award' award.id %}">{{ award.id }}</a></td>
+                        <td><a href="{% url 'award' award.id %}">{{ award.name }}</a></td>
+                        <td>{{ award.description }}</td>
+                        <td>{{ award.award_type }}</td>
+                        <td>{{ award.get_level }}</td>
+                        <td>
+                            {% if award.awarded.count > 0 %}
+                                {{ award.awarded.count }}
+                            {% else %}
+                                Ninguno
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

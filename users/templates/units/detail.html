@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1>{{ unit.name }}</h1>
+
+        <p class="lead">{{ unit.description }}</p>
+        <img width="100px" src="/{{ unit.get_picture }}">
+    </div>
+    <div>
+        {% if unit.members.count > 0 %}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <colgroup>
+                        <col class="col-xs-1">
+                        <col class="col-xs-7">
+                        <col class="col-xs-1">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th colspan="2">Miembros de la unidad</th>
+                    </tr>
+                    <tr>
+                        <th>Nick</th>
+                        <th>Rango</th>
+                        <th>Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for member in unit.members.all %}
+                        <tr>
+                            <td><a href="{% url 'member' member.id %}">{{ member.nick }}</a></td>
+                            <td>{{ member.get_rank }}</td>
+                            <td>{{ member.get_status }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

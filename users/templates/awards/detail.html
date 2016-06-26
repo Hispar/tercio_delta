@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1>{{ award.name }}</h1>
+
+        <h2>{{ award.award_type }} - {{ award.get_level }}</h2>
+
+        <p>{{ award.description }}</p>
+        <img width="100px" src="/{{ award.get_picture }}">
+
+        <p>{{ award.get_rank }} - {{ award.get_status }}</p>
+    </div>
+    <div>
+        {% if award.awarded.count > 0 %}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <colgroup>
+                        <col class="col-xs-1">
+                        <col class="col-xs-6">
+                        <col class="col-xs-2">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th colspan="2">Miembros Condecorados</th>
+                    </tr>
+                    <tr>
+                        <th>Nick</th>
+                        <th>Motivo</th>
+                        <th>Fecha</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for memberaward in award.awards.all %}
+                            <tr>
+                            <td><a href="{% url 'member' memberaward.member.id %}">{{ memberaward.member.nick }}</a></td>
+                            <td>{{ memberaward.reason }}</td>
+                            <td>{{ memberaward.date }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

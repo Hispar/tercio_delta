@@ -15,6 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 
+from users import views
+
 urlpatterns = [
-    # url(r'^login', ),
+    url(r'^$', views.index, name='index'),
+    url(r'^miembros/$', views.index, name='members'),
+    url(r'^unidades$', views.units, name='units'),
+    url(r'^condecoraciones$', views.awards, name='awards'),
+
+    # ex: /tercio/member/5
+    url(r'^member/(?P<member_id>\d+)/$', views.member, name='member'),
+    # ex: /tercio/unit/5
+    url(r'^unit/(?P<unit_id>\d+)/$', views.unit, name='unit'),
+    # ex: /tercio/award/5
+    url(r'^award/(?P<award_id>\d+)/$', views.award, name='award'),
 ]

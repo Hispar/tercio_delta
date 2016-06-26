@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Miembros</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if units_list %}
+                {% for unit in units_list %}
+                    <tr>
+                        <td><a href="{% url 'unit' unit.id %}">{{ unit.id }}</a></td>
+                        <td><a href="{% url 'unit' unit.id %}">{{ unit.name }}</a></td>
+                        <td>{{ unit.description }}</td>
+                        <td>
+                            <dl>
+                            {% for member in unit.members.all %}
+                                <dd><a href="{% url 'member' member.id %}">{{ member.nick }}</a> - {{ member.get_rank }}</dd>
+                            {% endfor %}
+                            </dl>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

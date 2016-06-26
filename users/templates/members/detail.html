@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1>{{ member.id }} - {{ member.nick }}</h1>
+
+        <h2>{{ member.real_name }}</h2>
+        <img width="100px" src="/{{ member.get_picture }}">
+
+        <p>{{ member.get_rank }} - {{ member.get_status }}</p>
+    </div>
+    <div>
+        <div class="row text-center">
+            <div class="col-xs-6">
+                {% if member.units.count > 0 %}
+                <dl>
+                    <dt>Unidades</dt>
+                    {% for unit in member.units.all %}
+                        <dd><a href="{% url 'unit' unit.id %}">{{ unit }}</a></dd>
+                    {% endfor %}
+                </dl>
+                {% endif %}
+            </div>
+            <div class="col-xs-6">
+                {% if member.awards.count > 0 %}
+                <dl>
+                    <dt>Condecoraciones</dt>
+                    {% for award in member.awards.all %}
+                        <dd><a href="{% url 'award' award.id %}">{{ award }}</a></dd>
+                    {% endfor %}
+                </dl>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -20,6 +20,5 @@ from tercio_delta.views import LoginView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', LoginView.as_view(), name="login-detail"),
-    url('', include('social.apps.django_app.urls', namespace='social')),
-    url(r'^users/', include('users.urls', namespace='social')),
+    url(r'^users/', include('users.urls')),
 ]

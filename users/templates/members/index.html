@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nick</th>
+                <th>Nombre</th>
+                <th>Foto</th>
+                <th>Rango</th>
+                <th>Estado</th>
+                <th>Unidad</th>
+                <th>Condecoraciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if members_list %}
+                {% for member in members_list %}
+                    <tr>
+                        <td><a href="{% url 'member' member.id %}">{{ member.id }}</a></td>
+                        <td><a href="{% url 'member' member.id %}">{{ member.nick }}</a></td>
+                        <td>{{ member.real_name }}</td>
+                        <td><img width="35px" src="/{{ member.get_picture }}"></td>
+                        <td>{{ member.get_rank }}</td>
+                        <td>{{ member.get_status }}</td>
+                        <td>
+                            <dl>
+                            {% for unit in member.units.all %}
+                                <dd>{{ unit }}</dd>
+                            {% endfor %}
+                            </dl>
+                        </td>
+                        <td>
+                            {%  if member.awards.count > 0 %}
+                                {{ member.awards.count }}
+                            {% else %}
+                                Ninguna
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
